@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Heart, Share, LayoutGrid } from "lucide-react";
-import { propertyData, requestPhotoTour } from "../data/propertyData";
+import { propertyData } from "../data/propertyData";
 
-export default function HeroGallery({ saved, onToggleSave }) {
+export default function HeroGallery({ saved, onToggleSave, onOpenPhotoTour, onImageClick }) {
   const [shareOpen, setShareOpen] = useState(false);
   const [copied, setCopied] = useState(false);
 
@@ -57,12 +57,12 @@ export default function HeroGallery({ saved, onToggleSave }) {
       </div>
 
       <div className="hero-gallery">
-        {propertyData.heroGallery.map((photo) => (
+        {propertyData.heroGallery.map((photo, index) => (
           <button
             type="button"
             className="hero-cell"
             key={photo.id}
-            onClick={() => requestPhotoTour(photo.id)}
+            onClick={() => onImageClick ? onImageClick(index) : onOpenPhotoTour()}
             aria-label={`View photo: ${photo.alt}`}
           >
             <img src={photo.src} alt={photo.alt} />
@@ -71,7 +71,7 @@ export default function HeroGallery({ saved, onToggleSave }) {
         <button
           type="button"
           className="show-photos"
-          onClick={() => requestPhotoTour("all")}
+          onClick={onOpenPhotoTour}
         >
           <LayoutGrid size={14} strokeWidth={2} />
           Show all photos

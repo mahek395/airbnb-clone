@@ -14,11 +14,16 @@ import HostSection from "./HostSection";
 import ThingsToKnow from "./ThingsToKnow";
 import NearbyListings from "./NearbyListings";
 import Footer from "./Footer";
-import { propertyData } from "../data/propertyData";
+import PhotoTour from "./PhotoTour";
+import PhotoViewer from "./PhotoViewer";
+import { propertyData, photoTourSections } from "../data/propertyData";
 import "../styles/listing.css";
 
 export default function ListingPage() {
   const [saved, setSaved] = useState(false);
+  const [photoTourOpen, setPhotoTourOpen] = useState(false);
+  const [viewerOpen, setViewerOpen] = useState(false);
+  const [viewerIndex, setViewerIndex] = useState(0);
   const [checkIn, setCheckIn] = useState(new Date(2024, 10, 12));
   const [checkOut, setCheckOut] = useState(new Date(2024, 10, 17));
   const [selecting, setSelecting] = useState("in");
@@ -49,11 +54,36 @@ export default function ListingPage() {
     setSelecting("in");
   }
 
+  // Flatten all images for viewer navigation
+  const allImages = photoTourSections.flatMap((section) =>
+    section.images.map((img) => ({ 
+      ...img, 
+      sectionTitle: section.title,
+      sectionId: section.id
+    }))
+  );
+
+  function handleHeroImageClick(imageIndex) {
+    setViewerIndex(imageIndex);
+    setViewerOpen(true);
+  }
+
+  function handleGridClick() {
+    // Open photo tour instead of viewer
+    setViewerOpen(false);
+    setPhotoTourOpen(true);
+  }
+
   return (
     <>
       <Header />
       <main className="listing-main">
-        <HeroGallery saved={saved} onToggleSave={() => setSaved((v) => !v)} />
+        <HeroGallery 
+          saved={saved} 
+          onToggleSave={() => setSaved((v) => !v)}
+          onOpenPhotoTour={() => setPhotoTourOpen(true)}
+          onImageClick={handleHeroImageClick}
+        />
 
         <div className="page-shell details-layout">
           <div>
@@ -129,6 +159,29 @@ export default function ListingPage() {
         <NearbyListings />
       </main>
       <Footer />
+
+      {photoTourOpen && (
+        <PhotoTour
+          onClose={() => setPhotoTourOpen(false)}
+          saved={saved}
+          onToggleSave={() => setSaved((v) => !v)}
+        />
+      )}
+
+      {viewerOpen && (
+        <PhotoViewer
+          images={allImages}
+          currentIndex={viewerIndex}
+          onClose={() => setViewerOpen(false)}
+          onNext={() =>
+            setViewerIndex((i) => (i + 1) % allImages.length)
+          }
+          onPrevious={() =>
+            setViewerIndex((i) => (i - 1 + allImages.length) % allImages.length)
+          }
+          onGridClick={handleGridClick}
+        />
+      )}
     </>
   );
 }

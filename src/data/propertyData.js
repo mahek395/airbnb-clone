@@ -17,6 +17,11 @@ export const propertyImages = {
   livingAlt: `${A}/property-14.jpeg`,
   livingWide: `${A}/property-13.jpeg`,
   loft: `${A}/property-15.jpeg`,
+  pool2: `${A}/property-17.jpeg`,
+  livingRoomWithJacuzzi: `${A}/property-16.jpeg`,
+  kitchen2: `${A}/property-18.jpeg`,
+  bedroom2: `${A}/property-19.jpeg`,
+  bedroom3: `${A}/property20.jpeg`,
 };
 
 export const chips = {
@@ -299,6 +304,98 @@ export function nightsBetween(checkIn, checkOut) {
   const ms = checkOut.getTime() - checkIn.getTime();
   return Math.max(0, Math.round(ms / 86400000));
 }
+
+export const photoTourSections = [
+  {
+    id: "living-room",
+    title: "Living room 1",
+    amenities: ["Sofa", "Air conditioning", "Ceiling fan", "TV"],
+    images: [
+      { src: propertyImages.livingRoom, alt: "Open living and dining room with mustard-yellow walls and a tan sofa", title: "Living room 1" },
+      { src: propertyImages.livingWide, alt: "Wide view of living space with dining area", title: "Living room 3" },
+      { src: propertyImages.livingAlt, alt: "Living room with rattan furniture and warm lighting", title: "Living room 2" }
+    ],
+  },
+  {
+    id: "living-room-2",
+    title: "Living room 2",
+    amenities: ["Ceiling fan", "Hot Tub"],
+    images: [
+      { src: propertyImages.patio, alt: "Open living and dining room with mustard-yellow walls and a tan sofa", title: "Living room 1" },
+       { src: propertyImages.jacuzzi, alt: "Wide view of living space with dining area", title: "Living room 3" },
+       { src: propertyImages.loft, alt: "Full Living room", title: "Living room 2" },
+      { src: propertyImages.livingRoomJacuzzi, alt: "Living room with rattan furniture and warm lighting", title: "Living room 2" },
+      
+     
+      { src: propertyImages.livingRoomWithJacuzzi, alt: "Wide view of living space with dining area", title: "Living room 3" },
+    ],
+  },
+  {
+    id: "kitchen",
+    title: "Full Kitchen",
+    amenities: ["Freezer","Fridge","Blender","Cooker","Cooking basics","Kettle", "Microwave","Toaster","Wine glasses","Coffee","Crockery and cutlery"],
+    images: [
+      { src: propertyImages.kitchen, alt: "Open living and dining room with mustard-yellow walls and a tan sofa", title: "Living room 1" },
+      { src: propertyImages.kitchen2, alt: "Living room with rattan furniture and warm lighting", title: "Living room 2" },
+    ],
+  },
+  {
+    id: "bedroom",
+    title: "Bedroom",
+    amenities: ["Double bed","Air conditioning","Bed linen","Ceiling fan","Clothes storage","Cot","Hangers","Iron","Room-darkening blinds","Cleaning available during stay","Cleaning products" ,"Long-term stays allowed","Private entrance","Wifi"],
+    images: [
+      { src: propertyImages.bedroom, alt: "Bedroom with king bed, rattan pendant light and arched mirror", title: "Bedroom 1" },
+      { src: propertyImages.bedroom2, alt: "Bedroom detail with warm lighting", title: "Bedroom 2" },
+      { src: propertyImages.bedroom3, alt: "Bedroom detail with warm lighting", title: "Bedroom 2" },
+       { src: propertyImages.bedroom, alt: "Bedroom with king bed, rattan pendant light and arched mirror", title: "Bedroom 1" },
+      { src: propertyImages.bedroom2, alt: "Bedroom detail with warm lighting", title: "Bedroom 2" },
+      { src: propertyImages.bedroom3, alt: "Bedroom detail with warm lighting", title: "Bedroom 2" },
+    ],
+  },
+  {
+    id: "bathroom",
+    title: "Full Bathroom",
+    amenities: ["Hairdryer","Hot water","Shampoo","Shower gel"],
+    images: [
+      { src: propertyImages.bathroom, alt: "Marble bathroom with teardrop mirror and walk-in shower", title: "Bathroom" },
+    ],
+  },
+  {
+    id: "gym",
+    title: "Gym",
+    amenities: ["Air conditioning", "Gym","Exercise equipment","Ceiling fan"],
+    images: [
+      { src: propertyImages.gym, alt: "Building gym with fitness equipment", title: "Gym" },
+    ],
+  },
+  {
+    id: "pool",
+    title: "Pool",
+    amenities: ["Courtyard swimming pool", "Shared pool", "Sun loungers", "Pool access"],
+    images: [
+      { src: propertyImages.pool, alt: "Courtyard swimming pool at Amor de Goa", title: "Pool area" },
+      { src: propertyImages.pool2, alt: "Courtyard swimming pool at Amor de Goa", title: "Pool area" },
+      { src: propertyImages.pool, alt: "Courtyard swimming pool at Amor de Goa", title: "Pool area" },
+    ],
+  },
+  {
+    id: "exterior",
+    title: "Exterior",
+    images: [
+      { src: propertyImages.exterior, alt: "Property exterior view", title: "Exterior view" },
+      { src: propertyImages.exteriorAerial, alt: "Aerial view of property and surroundings", title: "Aerial view" },
+    ],
+  },
+   {
+    id: "additional",
+    title: "Additional Photos",
+    images: [
+      { src: propertyImages.exterior, alt: "Property exterior view", title: "Exterior view" },
+      { src: propertyImages.exteriorAerial, alt: "Aerial view of property and surroundings", title: "Aerial view" },
+    ],
+  },
+  
+];
 
 /** Isolated hook for a later Photo Tour prompt. Do not implement the tour here. */
 export function requestPhotoTour(_photoId) {

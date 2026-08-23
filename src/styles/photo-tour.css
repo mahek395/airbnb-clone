@@ -1,0 +1,774 @@
+* {
+    box-sizing: border-box;
+}
+
+/* ============================================================
+   PHOTO TOUR - Full Screen Gallery
+   ============================================================ */
+
+.photo-tour {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #fff;
+  z-index: 100;
+  overflow: hidden;
+}
+
+/* ============================================================
+   FIXED HEADER
+   ============================================================ */
+.photo-tour-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #fff;
+  height: var(--header-height, 96px);
+}
+
+.photo-tour-header-inner {
+  width: min(calc(100% - 9vw), 1800px);
+  margin: 0 auto;
+  height: 100%;
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0;
+}
+
+.photo-tour-back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: none;
+  color: #222;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.photo-tour-back:hover {
+  background: #f7f7f7;
+}
+
+.photo-tour-title {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.photo-tour-actions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  justify-self: end;
+}
+
+.photo-tour-action-wrapper {
+  position: relative;
+}
+
+.photo-tour-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: none;
+  color: #222;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.photo-tour-action:hover {
+  background: #f7f7f7;
+}
+
+.photo-tour-share-menu {
+  position: absolute;
+  top: 56px;
+  right: 0;
+  background: #fff;
+  border: 1px solid #dddddd;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  min-width: 200px;
+  padding: 8px;
+  z-index: 20;
+}
+
+.photo-tour-share-menu button {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: 0;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #222;
+  cursor: pointer;
+}
+
+.photo-tour-share-menu button:hover {
+  background: #f7f7f7;
+}
+
+/* ============================================================
+   MAIN CONTENT
+   ============================================================ */
+.photo-tour-main {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-top: 0;
+}
+
+.photo-tour-content {
+  width: min(calc(100% - 9vw), 1800px);
+  margin: 0 auto;
+  padding: 10px 24px 80px;
+}
+
+/* ============================================================
+   OVERVIEW GRID - Auto-fill responsive thumbnail grid
+   ============================================================ */
+.photo-tour-overview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 80px;
+}
+
+.photo-tour-overview-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
+}
+
+.photo-tour-overview-thumb {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #f0f0f0;
+  margin-bottom: 12px;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.photo-tour-overview-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.photo-tour-overview-item:hover .photo-tour-overview-thumb {
+  filter: brightness(0.9);
+  transform: scale(1.02);
+}
+
+.photo-tour-overview-label {
+  font-size: 15px;
+  font-weight: 400;
+  color: #9a9a9a;
+  line-height: 1.4;
+}
+
+/* ============================================================
+   PHOTO TOUR SECTION - base (applies at all widths)
+   ============================================================ */
+.photo-tour-section {
+  margin-bottom: 32px;
+  scroll-margin-top: calc(var(--header-height, 96px) + 16px);
+}
+
+.photo-tour-section:last-child {
+  margin-bottom: 48px;
+}
+
+.photo-tour-section-info {
+  margin-bottom: 40px;
+}
+
+.photo-tour-section-info:empty {
+  display: none;
+}
+
+.photo-tour-section-info:empty + .photo-tour-gallery {
+  margin-top: 0;
+}
+
+.photo-tour-section-title {
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 1.1;
+  margin: 0 0 12px;
+  letter-spacing: -0.03em;
+  color: #222;
+}
+
+.photo-tour-section-amenities {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #9a9a9a;
+  font-weight: 400;
+  margin: 0;
+}
+
+/* ============================================================
+   GALLERY - base (row/featured building blocks used at all widths)
+   ============================================================ */
+.photo-tour-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.photo-tour-featured {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 10px;
+  overflow: hidden;
+  border: none;
+  background: #000;
+  cursor: pointer;
+  padding: 0;
+  position: relative;
+}
+
+.photo-tour-featured img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease, filter 0.2s ease;
+}
+
+.photo-tour-featured:hover img {
+  filter: brightness(0.9);
+  transform: scale(1.02);
+}
+
+.photo-tour-image-title {
+  display: none;
+}
+
+.photo-tour-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.photo-tour-row-item {
+  aspect-ratio: 4 / 3;
+  border-radius: 10px;
+  overflow: hidden;
+  border: none;
+  background: #000;
+  cursor: pointer;
+  padding: 0;
+  position: relative;
+}
+
+.photo-tour-row-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease, filter 0.2s ease;
+}
+
+.photo-tour-row-item:hover img {
+  filter: brightness(0.9);
+  transform: scale(1.02);
+}
+
+/* ============================================================
+   Desktop (>= 1118px): unified split layout — sticky left column
+   for title/description, gallery scrolls in the right column.
+   No 1600px ceiling, so browser zoom can't flip the design.
+   ============================================================ */
+@media (min-width: 1118px) {
+  .photo-tour-title {
+    font-size: 16px;
+  }
+
+  .photo-tour-overview-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 16px;
+    margin-bottom: 64px;
+  }
+
+  .photo-tour-overview-thumb {
+    aspect-ratio: 1 / 1;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+
+  .photo-tour-overview-label {
+    font-size: 14px;
+  }
+
+  /* Each section becomes a 2-column split; height is driven by
+     the right-hand gallery column, which is what gives the left
+     sticky column room to travel within this section only. */
+  .photo-tour-section {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 48px;
+    align-items: start;
+    position: relative;
+    margin-bottom: 120px;
+  }
+
+  .photo-tour-section:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Left column becomes sticky within its section. Offset is derived
+     from the same --header-height the header itself uses, so it can
+     never drift out of sync with the header's real rendered height. */
+  .photo-tour-section-info {
+    position: sticky;
+    top: calc(var(--header-height, 96px) + 16px);
+    margin-bottom: 0;
+    align-self: start;
+  }
+
+  .photo-tour-section-title {
+    font-size: 32px;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+
+  .photo-tour-section-amenities {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .photo-tour-gallery {
+    gap: 16px;
+  }
+
+  .photo-tour-featured {
+    aspect-ratio: 16 / 9;
+    border-radius: 8px;
+  }
+
+  .photo-tour-row {
+    gap: 16px;
+  }
+
+  .photo-tour-row-item {
+    border-radius: 8px;
+  }
+}
+
+/* ============================================================
+   PHOTO VIEWER - White background with top navigation
+   ============================================================ */
+.photo-viewer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #fff;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Top Navigation Bar */
+.photo-viewer-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #fff;
+  height: 64px;
+  flex-shrink: 0;
+}
+
+.photo-viewer-header-inner {
+  width: min(calc(100% - 9vw), 1800px);
+  margin: 0 auto;
+  height: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0;
+  position: relative;
+}
+
+/* Grid Button */
+.photo-viewer-grid-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: none;
+  color: #222;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.photo-viewer-grid-btn:hover {
+  background: #f7f7f7;
+}
+
+/* Title */
+.photo-viewer-title {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 16px;
+  font-weight: 500;
+  color: #222;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 60%;
+  text-align: center;
+}
+
+/* Right side - Counter and Close */
+.photo-viewer-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  justify-self: end;
+}
+
+.photo-viewer-counter {
+  font-size: 14px;
+  color: #222;
+}
+
+.photo-viewer-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: none;
+  color: #222;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.photo-viewer-close:hover {
+  background: #f7f7f7;
+}
+
+/* Main Image Area */
+.photo-viewer-main {
+  flex: 1;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  position: relative;
+  padding: 24px;
+  overflow: hidden;
+}
+
+.photo-viewer-image-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: calc(100% - 120px);
+  max-height: calc(100% - 48px);
+  padding: 20px;
+}
+
+.photo-viewer-image {
+  max-width: min(1100px, 100%);
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+/* Navigation Buttons */
+.photo-viewer-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid #000;
+  background: rgba(255, 255, 255, 0.9);
+  color: #222;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: background 0.2s ease;
+  flex-shrink: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.photo-viewer-nav:hover:not(:disabled) {
+  background: #fff;
+}
+
+.photo-viewer-nav:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.photo-viewer-prev {
+  left: 24px;
+}
+
+.photo-viewer-next {
+  right: 24px;
+}
+
+/* Responsive */
+@media (max-width: 767px) {
+  .photo-viewer-header {
+    height: 56px;
+  }
+
+  .photo-viewer-header-inner {
+    width: calc(100% - 32px);
+  }
+
+  .photo-viewer-grid-btn,
+  .photo-viewer-close {
+    width: 36px;
+    height: 36px;
+  }
+
+  .photo-viewer-title {
+    font-size: 14px;
+    max-width: 50%;
+  }
+
+  .photo-viewer-counter {
+    font-size: 13px;
+  }
+
+  .photo-viewer-main {
+    padding: 16px;
+  }
+
+  .photo-viewer-image-container {
+    max-width: calc(100% - 80px);
+  }
+
+  .photo-viewer-nav {
+    width: 40px;
+    height: 40px;
+  }
+
+  .photo-viewer-prev {
+    left: 12px;
+  }
+
+  .photo-viewer-next {
+    right: 12px;
+  }
+}
+
+/* ============================================================
+   LIGHTBOX (Legacy - kept for backwards compatibility)
+   ============================================================ */
+.photo-lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.photo-lightbox-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.photo-lightbox-close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.9);
+  color: #222;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: background 0.2s ease;
+}
+
+.photo-lightbox-close:hover {
+  background: #fff;
+}
+
+.photo-lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid rgba(0, 0, 0, 0.3);
+  background: rgba(255, 255, 255, 0.9);
+  color: #222;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+}
+
+.photo-lightbox-nav:hover {
+  background: #fff;
+}
+
+.photo-lightbox-prev {
+  left: 24px;
+}
+
+.photo-lightbox-next {
+  right: 24px;
+}
+
+.photo-lightbox-image-wrapper {
+  width: auto;
+  max-width: min(1100px, 80vw);
+  height: auto;
+  max-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.photo-lightbox-image {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.photo-lightbox-counter {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.9);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #222;
+  z-index: 10;
+}
+
+.photo-lightbox-caption {
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: #fff;
+  max-width: 600px;
+  padding: 0 20px;
+  z-index: 10;
+}
+
+.photo-lightbox-section {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.photo-lightbox-alt {
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+@media (max-width: 767px) {
+  .photo-lightbox-close {
+    top: 16px;
+    right: 16px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .photo-lightbox-nav {
+    width: 48px;
+    height: 48px;
+  }
+
+  .photo-lightbox-prev {
+    left: 8px;
+  }
+
+  .photo-lightbox-next {
+    right: 8px;
+  }
+
+  .photo-lightbox-counter {
+    bottom: 16px;
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+
+  .photo-lightbox-caption {
+    bottom: 60px;
+  }
+
+  .photo-lightbox-section {
+    font-size: 14px;
+  }
+
+  .photo-lightbox-alt {
+    font-size: 12px;
+  }
+}
