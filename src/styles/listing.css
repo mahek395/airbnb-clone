@@ -13,15 +13,17 @@
 }
 
 /* Shared container width */
-.header-inner,
 .page-shell {
   width: min(var(--container-width), calc(100% - 80px));
   max-width: var(--container-width);
   margin: 0 auto;
 }
 
-/* Three-column grid so the pill column stays dead-center */
+/* Header spans the full viewport with a fixed 80px gutter */
 .header-inner {
+  width: 100%;
+  padding: 0 80px;
+  margin: 0 auto;
   height: 100%;
   display: grid;
   grid-template-columns: 1fr auto 1fr;
@@ -42,8 +44,8 @@
 }
 
 .logo-mark {
-  /* viewBox="0 0 3490 1080": at height 34px, width ≈ 110px */
-  height: 34px;
+  /* viewBox="0 0 3490 1080": at height 32px, width ≈ 103px */
+  height: 32px;
   width: auto;
   display: block;
 }
@@ -55,7 +57,8 @@
   background: #fff;
   border: 1px solid #dddddd;
   border-radius: 40px;
-  padding: 5px 5px 5px 10px;
+  height: 48px;
+  padding: 0 8px 0 20px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
   cursor: pointer;
   transition: box-shadow 0.2s ease;
@@ -69,11 +72,11 @@
 
 /* House thumbnail inside pill */
 .header-house {
-  width: 22px;
-  height: 22px;
-  object-fit: contain;
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
   flex-shrink: 0;
-  margin-right: 2px;
+  margin-right: 0;
 }
 
 /* Text segments: Anywhere / Anytime / Add guests */
@@ -81,22 +84,26 @@
   font-size: 14px;
   font-weight: 600;
   color: #222222;
-  padding: 0 10px;
+  padding: 0 16px;
   white-space: nowrap;
   flex-shrink: 0;
+}
+
+/* First segment sits closer to the house thumbnail */
+.search-pill > span.search-pill-segment:first-of-type {
+  padding-left: 6px;
 }
 
 /* Add guests is lighter placeholder */
 .search-pill-placeholder {
   color: #717171;
   font-weight: 400;
-  padding-right: 4px;
 }
 
 /* Thin dividers */
 .search-pill-divider {
   width: 1px;
-  height: 20px;
+  height: 24px;
   background: #dddddd;
   flex-shrink: 0;
 }
@@ -106,12 +113,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   background: #FF385C;
   flex-shrink: 0;
-  margin-left: 4px;
+  margin-left: 8px;
 }
 
 /* ---- Right side controls ---- */
@@ -119,7 +126,7 @@
   display: flex;
   align-items: center;
   justify-self: end;
-  gap: 4px;
+  gap: 8px;
 }
 
 .header-link {
@@ -128,7 +135,7 @@
   font-size: 14px;
   font-weight: 600;
   color: #222222;
-  padding: 10px 12px;
+  padding: 10px 16px;
   border-radius: 22px;
   cursor: pointer;
   white-space: nowrap;
@@ -146,7 +153,7 @@
   height: 40px;
   border-radius: 50%;
   border: none;
-  background: #f7f7f7;
+  background: #f2f2f2;
   color: #222222;
   cursor: pointer;
   flex-shrink: 0;
@@ -1260,10 +1267,13 @@
 }
 
 @media (max-width: 1120px) {
-  .header-inner,
   .page-shell,
   .footer-inner {
     width: calc(100% - 48px);
+  }
+
+  .header-inner {
+    padding: 0 24px;
   }
 
   .details-layout {
@@ -1292,10 +1302,24 @@
   .search-pill {
     width: auto;
     min-width: unset;
+    height: 42px;
+    padding: 0 6px 0 10px;
   }
 
-  .search-pill-segment {
+  .search-pill-segment,
+  .search-pill > span.search-pill-segment:first-of-type {
     padding: 0 8px;
+  }
+
+  .header-house {
+    width: 30px;
+    height: 30px;
+  }
+
+  .search-pill-icon {
+    width: 30px;
+    height: 30px;
+    margin-left: 4px;
   }
 
   .header-link {
