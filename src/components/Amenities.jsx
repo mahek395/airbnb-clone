@@ -1,24 +1,8 @@
 import { useState } from "react";
 import {
-  AirVent,
-  Car,
-  CookingPot,
-  Fan,
-  Wind,
-  Heater,
-  KeyRound,
-  Microwave,
-  ParkingCircle,
-  Refrigerator,
-  Shirt,
-  Tv,
-  Waves,
-  Wifi,
-  Bath,
-  Trees,
-  Dumbbell,
-  LampDesk,
-  Utensils,
+  AirVent, Car, CookingPot, Fan, Wind, Heater, KeyRound, Microwave,
+  ParkingCircle, Refrigerator, Shirt, Tv, Waves, Wifi, Bath, Trees,
+  Dumbbell, LampDesk, Utensils, PawPrint, Video, BellOff,
 } from "lucide-react";
 import { propertyData } from "../data/propertyData";
 
@@ -45,6 +29,10 @@ const ICONS = {
   patio: Trees,
   fan: Fan,
   self: KeyRound,
+  pets: PawPrint,
+  cameras: Video,
+  "co-alarm": BellOff,
+  "smoke-alarm": BellOff,
 };
 
 export default function Amenities() {
@@ -60,7 +48,10 @@ export default function Amenities() {
         {list.map((item) => {
           const Icon = ICONS[item.id] ?? ParkingCircle;
           return (
-            <div className="amenity" key={item.id}>
+            <div
+              className={`amenity${item.unavailable ? " amenity--unavailable" : ""}`}
+              key={item.id}
+            >
               <Icon size={24} strokeWidth={1.6} aria-hidden="true" />
               {item.label}
             </div>
