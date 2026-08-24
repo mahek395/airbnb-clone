@@ -50,26 +50,42 @@ export const propertyData = {
   propertyType: "Entire serviced apartment",
   locationShort: "Candolim, India",
   locationFull: "Candolim, Goa, India",
-  guests: 2,
+  guests: 3,
   bedrooms: 1,
   beds: 1,
   bathrooms: 1,
   rating: 4.95,
-  reviewCount: 20,
+  reviewCount: 19,
   pricePerNight: 10480,
+  stayTotal: 28499,
   currency: "₹",
   nightsLabel: "5 nights in Candolim",
   cleaningFee: 1850,
   serviceFeeRate: 0.14,
   host: {
-    name: "Mirashya (Archana)",
-    firstName: "Mirashya",
+    name: "Mirashya Homes",
+    firstName: "Mirashya Homes",
     avatar: uiAssets.host,
-    yearsHosting: 7,
+    yearsHosting: 2,
     isSuperhost: true,
     responseRate: "100%",
     responseTime: "within an hour",
-    coHosts: ["Aprasa"],
+    reviewCount: 1463,
+    rating: 4.68,
+    facts: [
+      { icon: "born", text: "Born in the 80s" },
+      { icon: "school", text: "Where I went to school: NICMAR GOA" },
+    ],
+    coHosts: [
+      { name: "Sharath", avatar: "/assests/avatars/sharath.svg" },
+      { name: "Aman Dev Pahwa", avatar: "/assests/avatars/aman.svg" },
+      { name: "Maria Karen Priyanka", avatar: "/assests/avatars/maria.svg" },
+      { name: "Simran", avatar: "/assests/avatars/simran.svg" },
+      { name: "Pallavi", avatar: "/assests/avatars/pallavi.svg" },
+      { name: "Sanyukta", avatar: "/assests/avatars/sanyukta.svg" },
+      { name: "Shruti", avatar: null },
+      { name: "Amisha", avatar: null },
+    ],
     about:
       "We are a small hospitality team creating calm, design-led stays in North Goa. UG10 is our romantic 1BHK with a private jacuzzi, curated for couples who want space, privacy and a short walk to Candolim Beach.",
   },
@@ -83,25 +99,26 @@ export const propertyData = {
   ],
   highlights: [
     {
+      id: "outdoor",
+      title: "Outdoor entertainment",
+      body: "The pool and alfresco dining are great for summer trips.",
+    },
+    {
+      id: "cool",
+      title: "Designed for staying cool",
+      body: "Beat the heat with the A/C and ceiling fan.",
+    },
+    {
       id: "checkin",
       title: "Self check-in",
-      body: "Check yourself in with the lockbox.",
-    },
-    {
-      id: "pool",
-      title: "Dive right in",
-      body: "This is one of the few places in the area with a pool.",
-    },
-    {
-      id: "wifi",
-      title: "Fast wifi",
-      body: "At 147 Mbps, you can take video calls and stream films on both devices at once.",
+      body: "You can check in with the building staff.",
     },
   ],
   description: {
     preview:
-      "A romantic 1BHK in Amor de Goa, Candolim — designed for couples. Wake up to a king bed and filtered light, cook in a fully equipped kitchen, then sink into your private jacuzzi on the lounge deck. The shared courtyard pool and gym sit a lift ride away, and Candolim Beach is about five minutes by scooter.",
-    rest: "The apartment is on a quiet upper floor with a private entrance. Yellow dado walls, cane furniture and warm lighting give the living room a Goan-home feel, while the jacuzzi deck is lined in stone and teak for evening soaks. Kitchen basics, air conditioning, fast wifi and dedicated workspace are all in place. Building staff can help with late arrivals. Perfect for a two-night reset or a longer, slow stay in North Goa.",
+      "🌴 Plan Your Relaxing Holiday at Amor De Goa by Mirashya Homes! ✨ Stay in this cozy 1BHK in the heart of Candolim, featuring a private jacuzzi 🛁 for the perfect unwind. Enjoy high-speed WiFi 💻, Smart TV 📺, pet-friendly comfort 🐾, and stylish interiors. ",
+    previewFade: "Just minutes from Candolim Beach 🏖️, popular cafés, restaurants, and nightlife 🌴, it's",
+    rest: " ideal for couples seeking romance, relaxation, and a touch of luxury in North Goa. 💗🌴",
   },
   sleeping: [
     {
@@ -116,19 +133,18 @@ export const propertyData = {
     },
   ],
   amenities: [
-    { id: "garden", label: "Garden view" },
     { id: "kitchen", label: "Kitchen" },
     { id: "wifi", label: "Wifi" },
     { id: "workspace", label: "Dedicated workspace" },
-    { id: "pool", label: "Shared pool" },
-    { id: "tub", label: "Private hot tub" },
-    { id: "ac", label: "Air conditioning" },
-    { id: "tv", label: "TV" },
-    { id: "washer", label: "Washing machine" },
     { id: "parking", label: "Free parking on premises" },
-    { id: "hair", label: "Hair dryer" },
-    { id: "fridge", label: "Refrigerator" },
+    { id: "pool", label: "Pool" },
+    { id: "tub", label: "Hot tub" },
+    { id: "pets", label: "Pets allowed" },
+    { id: "cameras", label: "Exterior security cameras on property" },
+    { id: "co-alarm", label: "Carbon monoxide alarm", unavailable: true },
+    { id: "smoke-alarm", label: "Smoke alarm", unavailable: true },
   ],
+  amenityTotal: 50,
   extraAmenities: [
     { id: "microwave", label: "Microwave" },
     { id: "kettle", label: "Kettle" },
@@ -141,7 +157,6 @@ export const propertyData = {
     { id: "fan", label: "Ceiling fan" },
     { id: "self", label: "Self check-in" },
   ],
-  amenityTotal: 55,
   ratingCategories: [
     { id: "cleanliness", label: "Cleanliness", score: 4.9 },
     { id: "accuracy", label: "Accuracy", score: 5.0 },
@@ -240,56 +255,42 @@ export const propertyData = {
   nearbyListings: [
     {
       id: "n1",
-      title: "Candolim",
-      subtitle: "Private jacuzzi suite",
+      title: "Beautiful Studio with a view to die for",
       image: propertyImages.patio,
-      rating: 4.92,
-      price: 9890,
+      rating: 4.91,
+      price: 23600,
       nights: 5,
     },
     {
       id: "n2",
-      title: "Candolim",
-      subtitle: "Pool-view 1BHK",
+      title: "NAQAB - 1bhk with private pool",
       image: propertyImages.pool,
-      rating: 4.88,
-      price: 8720,
+      rating: 4.95,
+      price: 42218,
       nights: 5,
     },
     {
       id: "n3",
-      title: "Calangute",
-      subtitle: "Design loft with tub",
+      title: "Greentique Luxury Flat with plunge pool, Calangute",
       image: propertyImages.loft,
-      rating: 4.97,
-      price: 11240,
+      rating: 4.94,
+      price: 44506,
       nights: 5,
     },
     {
       id: "n4",
-      title: "Candolim",
-      subtitle: "Garden apartment",
+      title: "The Tropical Studio | 5 mins to Beach",
       image: propertyImages.kitchen,
-      rating: 4.9,
-      price: 7640,
+      rating: 4.96,
+      price: 22824,
       nights: 5,
     },
     {
       id: "n5",
-      title: "Sinquerim",
-      subtitle: "Beach-road studio",
+      title: "Luxury Casa Bella 1BHK with plunge pool, Calangute",
       image: propertyImages.exteriorAerial,
-      rating: 4.86,
-      price: 6990,
-      nights: 5,
-    },
-    {
-      id: "n6",
-      title: "Candolim",
-      subtitle: "Couple’s hideaway",
-      image: propertyImages.jacuzzi,
-      rating: 4.94,
-      price: 10150,
+      rating: 4.95,
+      price: 39942,
       nights: 5,
     },
   ],
@@ -322,18 +323,18 @@ export const photoTourSections = [
     amenities: ["Ceiling fan", "Hot Tub"],
     images: [
       { src: propertyImages.patio, alt: "Open living and dining room with mustard-yellow walls and a tan sofa", title: "Living room 1" },
-       { src: propertyImages.jacuzzi, alt: "Wide view of living space with dining area", title: "Living room 3" },
-       { src: propertyImages.loft, alt: "Full Living room", title: "Living room 2" },
+      { src: propertyImages.jacuzzi, alt: "Wide view of living space with dining area", title: "Living room 3" },
+      { src: propertyImages.loft, alt: "Full Living room", title: "Living room 2" },
       { src: propertyImages.livingRoomJacuzzi, alt: "Living room with rattan furniture and warm lighting", title: "Living room 2" },
-      
-     
+
+
       { src: propertyImages.livingRoomWithJacuzzi, alt: "Wide view of living space with dining area", title: "Living room 3" },
     ],
   },
   {
     id: "kitchen",
     title: "Full Kitchen",
-    amenities: ["Freezer","Fridge","Blender","Cooker","Cooking basics","Kettle", "Microwave","Toaster","Wine glasses","Coffee","Crockery and cutlery"],
+    amenities: ["Freezer", "Fridge", "Blender", "Cooker", "Cooking basics", "Kettle", "Microwave", "Toaster", "Wine glasses", "Coffee", "Crockery and cutlery"],
     images: [
       { src: propertyImages.kitchen, alt: "Open living and dining room with mustard-yellow walls and a tan sofa", title: "Living room 1" },
       { src: propertyImages.kitchen2, alt: "Living room with rattan furniture and warm lighting", title: "Living room 2" },
@@ -342,12 +343,12 @@ export const photoTourSections = [
   {
     id: "bedroom",
     title: "Bedroom",
-    amenities: ["Double bed","Air conditioning","Bed linen","Ceiling fan","Clothes storage","Cot","Hangers","Iron","Room-darkening blinds","Cleaning available during stay","Cleaning products" ,"Long-term stays allowed","Private entrance","Wifi"],
+    amenities: ["Double bed", "Air conditioning", "Bed linen", "Ceiling fan", "Clothes storage", "Cot", "Hangers", "Iron", "Room-darkening blinds", "Cleaning available during stay", "Cleaning products", "Long-term stays allowed", "Private entrance", "Wifi"],
     images: [
       { src: propertyImages.bedroom, alt: "Bedroom with king bed, rattan pendant light and arched mirror", title: "Bedroom 1" },
       { src: propertyImages.bedroom2, alt: "Bedroom detail with warm lighting", title: "Bedroom 2" },
       { src: propertyImages.bedroom3, alt: "Bedroom detail with warm lighting", title: "Bedroom 2" },
-       { src: propertyImages.bedroom, alt: "Bedroom with king bed, rattan pendant light and arched mirror", title: "Bedroom 1" },
+      { src: propertyImages.bedroom, alt: "Bedroom with king bed, rattan pendant light and arched mirror", title: "Bedroom 1" },
       { src: propertyImages.bedroom2, alt: "Bedroom detail with warm lighting", title: "Bedroom 2" },
       { src: propertyImages.bedroom3, alt: "Bedroom detail with warm lighting", title: "Bedroom 2" },
     ],
@@ -355,7 +356,7 @@ export const photoTourSections = [
   {
     id: "bathroom",
     title: "Full Bathroom",
-    amenities: ["Hairdryer","Hot water","Shampoo","Shower gel"],
+    amenities: ["Hairdryer", "Hot water", "Shampoo", "Shower gel"],
     images: [
       { src: propertyImages.bathroom, alt: "Marble bathroom with teardrop mirror and walk-in shower", title: "Bathroom" },
     ],
@@ -363,7 +364,7 @@ export const photoTourSections = [
   {
     id: "gym",
     title: "Gym",
-    amenities: ["Air conditioning", "Gym","Exercise equipment","Ceiling fan"],
+    amenities: ["Air conditioning", "Gym", "Exercise equipment", "Ceiling fan"],
     images: [
       { src: propertyImages.gym, alt: "Building gym with fitness equipment", title: "Gym" },
     ],
@@ -386,7 +387,7 @@ export const photoTourSections = [
       { src: propertyImages.exteriorAerial, alt: "Aerial view of property and surroundings", title: "Aerial view" },
     ],
   },
-   {
+  {
     id: "additional",
     title: "Additional Photos",
     images: [
@@ -394,7 +395,7 @@ export const photoTourSections = [
       { src: propertyImages.exteriorAerial, alt: "Aerial view of property and surroundings", title: "Aerial view" },
     ],
   },
-  
+
 ];
 
 /** Isolated hook for a later Photo Tour prompt. Do not implement the tour here. */

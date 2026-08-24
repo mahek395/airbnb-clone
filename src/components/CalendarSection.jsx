@@ -36,7 +36,7 @@ function Month({ month, checkIn, checkOut, onSelect }) {
     cells.push(new Date(month.getFullYear(), month.getMonth(), d));
   }
 
-  const today = new Date(2024, 10, 1);
+  const today = new Date(2026, 9, 1);
 
   return (
     <div>
@@ -51,7 +51,7 @@ function Month({ month, checkIn, checkOut, onSelect }) {
       <div className="days">
         {cells.map((day, i) => {
           if (!day) return <span className="day empty" key={`e-${i}`} />;
-          const disabled = day < today && day.getMonth() === 10 && day.getDate() < 8;
+          const disabled = day < today;
           const selected = sameDay(day, checkIn) || sameDay(day, checkOut);
           const inRange = isBetween(day, checkIn, checkOut);
           return (
@@ -72,7 +72,7 @@ function Month({ month, checkIn, checkOut, onSelect }) {
 }
 
 export default function CalendarSection({ checkIn, checkOut, onSelect, onClear, monthOffset, setMonthOffset }) {
-  const base = addMonths(new Date(2024, 10, 1), monthOffset);
+  const base = addMonths(new Date(2026, 9, 1), monthOffset);
   const nights =
     checkIn && checkOut
       ? Math.round((checkOut - checkIn) / 86400000)
