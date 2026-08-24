@@ -12,7 +12,7 @@ export default function PropertyHeader() {
           bed · {propertyData.bathrooms} bathroom
         </p>
       </div>
-      <img className="host-mini" src={propertyData.host.avatar} alt={propertyData.host.name} />
+      
     </div>
   );
 }

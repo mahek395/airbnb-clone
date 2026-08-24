@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Header from "./Header";
 import PropertyHeader from "./PropertyHeader";
 import HeroGallery from "./HeroGallery";
@@ -21,15 +21,33 @@ import "../styles/listing.css";
 
 export default function ListingPage() {
   const [saved, setSaved] = useState(false);
+  const [showSectionNav, setShowSectionNav] = useState(false);
   const [photoTourOpen, setPhotoTourOpen] = useState(false);
   const [viewerOpen, setViewerOpen] = useState(false);
   const [viewerIndex, setViewerIndex] = useState(0);
-  const [checkIn, setCheckIn] = useState(new Date(2024, 10, 12));
-  const [checkOut, setCheckOut] = useState(new Date(2024, 10, 17));
+  const [checkIn, setCheckIn] = useState(new Date(2026, 9, 18));
+  const [checkOut, setCheckOut] = useState(new Date(2026, 9, 23));
   const [selecting, setSelecting] = useState("in");
   const [monthOffset, setMonthOffset] = useState(0);
   const [guests, setGuests] = useState({ adults: 2, children: 0 });
   const calendarRef = useRef(null);
+
+  useEffect(() => {
+    function updateSectionNav() {
+      setShowSectionNav(window.scrollY > 520);
+    }
+
+    updateSectionNav();
+    window.addEventListener("scroll", updateSectionNav, { passive: true });
+    return () => window.removeEventListener("scroll", updateSectionNav);
+  }, []);
+
+  function scrollToSection(sectionId) {
+    document.getElementById(sectionId)?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }
 
   function onSelectDate(day) {
     if (selecting === "in" || !checkIn || (checkOut && day <= checkIn)) {
@@ -76,32 +94,38 @@ export default function ListingPage() {
 
   return (
     <>
-      <Header />
+      <Header condensed={showSectionNav} />
+      <nav className={`section-nav ${showSectionNav ? "section-nav-visible" : ""}`} aria-label="Listing sections">
+        <div className="section-nav-inner">
+          <div className="section-nav-links">
+            <button type="button" className="section-nav-link is-active" onClick={() => scrollToSection("photos")}>Photos</button>
+            <button type="button" className="section-nav-link" onClick={() => scrollToSection("amenities")}>Amenities</button>
+            <button type="button" className="section-nav-link" onClick={() => scrollToSection("reviews")}>Reviews</button>
+            <button type="button" className="section-nav-link" onClick={() => scrollToSection("location")}>Location</button>
+          </div>
+          <div className="section-nav-summary">
+            <div className="section-nav-rating">
+              <strong>₹{propertyData.stayTotal.toLocaleString("en-IN")}</strong>
+              <span>for 5 nights</span>
+              <small>★ {propertyData.rating} · {propertyData.reviewCount} reviews</small>
+            </div>
+            <button type="button" className="section-nav-reserve" onClick={() => scrollToSection("booking")}>Reserve</button>
+          </div>
+        </div>
+      </nav>
       <main className="listing-main">
-        <HeroGallery 
+        <div id="photos">
+          <HeroGallery 
           saved={saved} 
           onToggleSave={() => setSaved((v) => !v)}
           onOpenPhotoTour={() => setPhotoTourOpen(true)}
           onImageClick={handleHeroImageClick}
-        />
+          />
+        </div>
 
         <div className="page-shell details-layout">
           <div>
             <PropertyHeader />
-
-            <div className="guest-favorite">
-              <div className="gf-side">
-                <img className="laurel" src="/assests/laurel-left.png" alt="" />
-                Guest
-                <br />
-                favourite
-              </div>
-              <div className="gf-score">{propertyData.rating.toFixed(2)}</div>
-              <button type="button" className="gf-reviews" onClick={() => document.getElementById("reviews")?.scrollIntoView({ behavior: "smooth" })}>
-                {propertyData.reviewCount} reviews
-              </button>
-              <img className="laurel" src="/assests/laurel-right.png" alt="" />
-            </div>
 
             <hr className="section-rule" />
 
@@ -109,10 +133,7 @@ export default function ListingPage() {
               <img className="host-mini" src={propertyData.host.avatar} alt="" />
               <div>
                 <h3>Hosted by {propertyData.host.name}</h3>
-                <p>
-                  {propertyData.host.isSuperhost ? "Superhost · " : ""}
-                  {propertyData.host.yearsHosting} years hosting
-                </p>
+                <p>{propertyData.host.yearsHosting} years hosting</p>
               </div>
             </div>
 
@@ -123,7 +144,7 @@ export default function ListingPage() {
             <hr className="section-rule" />
             <SleepingArrangements />
             <hr className="section-rule" />
-            <Amenities />
+            <div id="amenities"><Amenities /></div>
             <hr className="section-rule" />
             <div ref={calendarRef}>
               <CalendarSection
@@ -146,19 +167,18 @@ export default function ListingPage() {
             onFocusDates={() => calendarRef.current?.scrollIntoView({ behavior: "smooth", block: "center" })}
           />
         </div>
+        <hr className="section-rule" />
+        <div id="reviews"><ReviewsSection /></div>
 
-        <hr className="section-rule page-shell" />
-        <ReviewsSection />
-        <hr className="section-rule page-shell" />
-        <LocationSection />
-        <hr className="section-rule page-shell" />
+        <hr className="section-rule" />
+        <div id="location"><LocationSection /></div>
+        <hr className="section-rule" />
         <HostSection />
-        <hr className="section-rule page-shell" />
+        <hr className="section-rule" />
         <ThingsToKnow />
-        <hr className="section-rule page-shell" />
+        <hr className="section-rule" />
         <NearbyListings />
       </main>
-      <Footer />
 
       {photoTourOpen && (
         <PhotoTour

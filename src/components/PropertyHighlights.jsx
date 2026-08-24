@@ -1,17 +1,17 @@
-import { KeyRound, Waves, Wifi } from "lucide-react";
+import { DoorOpen, Fan, Tent } from "lucide-react";
 import { propertyData } from "../data/propertyData";
 
 const ICONS = {
-  checkin: KeyRound,
-  pool: Waves,
-  wifi: Wifi,
+  outdoor: Tent,
+  cool: Fan,
+  checkin: DoorOpen,
 };
 
 export default function PropertyHighlights() {
   return (
     <div className="highlight-list">
       {propertyData.highlights.map((item) => {
-        const Icon = ICONS[item.id] ?? Wifi;
+        const Icon = ICONS[item.id] ?? Fan;
         return (
           <div className="highlight" key={item.id}>
             <Icon size={24} strokeWidth={1.6} aria-hidden="true" />
