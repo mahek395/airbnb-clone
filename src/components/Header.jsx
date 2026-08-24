@@ -1,8 +1,8 @@
 import { Globe, Menu, Search } from "lucide-react";
 import { uiAssets } from "../data/propertyData";
-export default function Header() {
+export default function Header({ condensed = false }) {
   return (
-    <header className="site-header">
+    <header className={`site-header ${condensed ? "site-header-condensed" : ""}`}>
       <div className="header-inner">
         <button type="button" className="logo-btn" aria-label="Airbnb home">
           <svg className="logo-mark" viewBox="0 0 3490 1080" aria-hidden="true">
