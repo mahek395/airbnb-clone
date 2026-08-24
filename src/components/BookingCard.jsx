@@ -1,10 +1,14 @@
 import { useState } from "react";
-import { ChevronDown, ChevronUp, Minus, Plus } from "lucide-react";
+import { ChevronDown, ChevronUp, Flag, Minus, Plus, Tag } from "lucide-react";
 import { formatInr, nightsBetween, propertyData } from "../data/propertyData";
 
 function fmt(d) {
   if (!d) return "Add date";
-  return d.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+  return d.toLocaleDateString("en-US", {
+    month: "2-digit",
+    day: "2-digit",
+    year: "numeric",
+  });
 }
 
 export default function BookingCard({
@@ -17,9 +21,8 @@ export default function BookingCard({
 }) {
   const [guestOpen, setGuestOpen] = useState(false);
   const nights = nightsBetween(checkIn, checkOut) || 5;
-  const stay = propertyData.pricePerNight * nights;
-  const service = Math.round(stay * propertyData.serviceFeeRate);
-  const total = stay + propertyData.cleaningFee + service;
+  const nightly = propertyData.stayTotal / 5;
+  const total = Math.round(nightly * nights);
   const guestLabel = `${guests.adults + guests.children} guest${guests.adults + guests.children === 1 ? "" : "s"}`;
 
   function change(key, delta, min, max) {
@@ -34,11 +37,21 @@ export default function BookingCard({
   }
 
   return (
-    <aside className="booking-wrap">
+    <aside id="booking" className="booking-wrap">
+      <div className="promo-card">
+        <Tag size={20} strokeWidth={1.75} color="#008a05" aria-hidden="true" />
+        <p>
+          Get 10% off your next stay. <button type="button">Terms apply</button>
+        </p>
+        <button type="button" className="promo-claim">
+          Claim
+        </button>
+      </div>
+
       <div className="booking-card">
-        <div className="price-row">
-          <strong>{formatInr(propertyData.pricePerNight)}</strong>
-          <span>night</span>
+        <div className="price-row price-row-stay">
+          <strong>{formatInr(total)}</strong>
+          <span>for {nights} nights</span>
         </div>
 
         <div className="date-box">
@@ -64,9 +77,7 @@ export default function BookingCard({
           >
             <span>
               <div className="date-label">GUESTS</div>
-              <div className="date-value" style={{ color: "#222" }}>
-                {guestLabel}
-              </div>
+              <div className="date-value date-value-filled">{guestLabel}</div>
             </span>
             {guestOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
           </button>
@@ -84,7 +95,7 @@ export default function BookingCard({
                   type="button"
                   aria-label="Decrease adults"
                   disabled={guests.adults <= 1}
-                  onClick={() => change("adults", -1, 1, 2)}
+                  onClick={() => change("adults", -1, 1, 3)}
                 >
                   <Minus size={14} />
                 </button>
@@ -92,7 +103,7 @@ export default function BookingCard({
                 <button
                   type="button"
                   aria-label="Increase adults"
-                  onClick={() => change("adults", 1, 1, 2)}
+                  onClick={() => change("adults", 1, 1, 3)}
                 >
                   <Plus size={14} />
                 </button>
@@ -108,7 +119,7 @@ export default function BookingCard({
                   type="button"
                   aria-label="Decrease children"
                   disabled={guests.children <= 0}
-                  onClick={() => change("children", -1, 0, 1)}
+                  onClick={() => change("children", -1, 0, 2)}
                 >
                   <Minus size={14} />
                 </button>
@@ -116,7 +127,7 @@ export default function BookingCard({
                 <button
                   type="button"
                   aria-label="Increase children"
-                  onClick={() => change("children", 1, 0, 1)}
+                  onClick={() => change("children", 1, 0, 2)}
                 >
                   <Plus size={14} />
                 </button>
@@ -124,31 +135,19 @@ export default function BookingCard({
             </div>
           </div>
         )}
-
+        <div className="cancel-note">
+          Free cancellation before <strong>17 October</strong>
+        </div>
         <button type="button" className="reserve-btn">
           Reserve
         </button>
         <p className="charge-note">You won&apos;t be charged yet</p>
-
-        <div className="fee-row">
-          <span>
-            {formatInr(propertyData.pricePerNight)} x {nights} nights
-          </span>
-          <span>{formatInr(stay)}</span>
-        </div>
-        <div className="fee-row">
-          <span>Cleaning fee</span>
-          <span>{formatInr(propertyData.cleaningFee)}</span>
-        </div>
-        <div className="fee-row">
-          <span>Airbnb service fee</span>
-          <span>{formatInr(service)}</span>
-        </div>
-        <div className="fee-total">
-          <span>Total before taxes</span>
-          <span>{formatInr(total)}</span>
-        </div>
       </div>
+
+      <button type="button" className="report-listing">
+        <Flag size={14} strokeWidth={1.75} />
+        Report this listing
+      </button>
     </aside>
   );
 }

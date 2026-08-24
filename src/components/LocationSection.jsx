@@ -1,10 +1,7 @@
-import { useState } from "react";
-import { ChevronRight, Minus, Plus } from "lucide-react";
-import { propertyData, uiAssets } from "../data/propertyData";
+import { ChevronRight, Home, Minus, Plus } from "lucide-react";
+import { propertyData } from "../data/propertyData";
 
 export default function LocationSection() {
-  const [more, setMore] = useState(false);
-
   return (
     <section className="page-shell full-section">
       <h2 className="section-title">Where you&apos;ll be</h2>
@@ -14,7 +11,9 @@ export default function LocationSection() {
         <div className="map-water" aria-hidden="true" />
         <div className="map-road h" aria-hidden="true" />
         <div className="map-road v" aria-hidden="true" />
-        <img className="map-pin" src={uiAssets.locationPin} alt="Property location in Candolim" />
+        <div className="map-pin" aria-label="Property location in Candolim">
+          <Home size={22} strokeWidth={2.3} />
+        </div>
         <div className="map-zoom">
           <button type="button" aria-label="Zoom in">
             <Plus size={16} />
@@ -24,12 +23,16 @@ export default function LocationSection() {
           </button>
         </div>
       </div>
-      <p className="description" style={{ marginTop: 24 }}>
-        {propertyData.locationBlurb}
-        {more ? ` ${propertyData.locationMore}` : ""}
+
+      <p className="location-note">Exact location will be provided after booking.</p>
+
+      <h3 className="neighborhood-title">Neighbourhood highlights</h3>
+      <p className="neighborhood-copy">
+        Located in the heart of Candolim, Amor de Goa offers a peaceful stay with easy access to beaches,
+        cafés, and popular attractions.
       </p>
-      <button type="button" className="show-more" onClick={() => setMore((v) => !v)}>
-        {more ? "Show less" : "Show more"}
+      <button type="button" className="show-more neighborhood-more">
+        Show more
         <ChevronRight size={16} />
       </button>
     </section>
